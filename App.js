@@ -10,6 +10,7 @@ import {
   Image,
   Alert,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 
 import axios from "axios";
@@ -74,7 +75,9 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <StatusBar/>
+
       <Text style={styles.title}>Buscar Película por IMDb ID</Text>
 
       <TextInput
@@ -90,8 +93,8 @@ const App = () => {
       </TouchableOpacity>
 
       {loading && <ActivityIndicator size="large" color="#0000ff" />}
-
-      {movieData && (
+        <ScrollView>
+        {movieData && (
         <View style={styles.result}>
           <Image
             source={{ uri: movieData.Poster }}
@@ -99,8 +102,14 @@ const App = () => {
             resizeMode="contain"
           />
           <Text style={styles.movieTitle}>{movieData.Title}</Text>
+          <Text> More information </Text>
+          <Text style={styles.Information}>Actors: {movieData.Actors}</Text>
+          <Text style={styles.Information}>Genre: {movieData.Genre}</Text>
+          <Text style={styles.Information}>Directors: {movieData.Director}</Text>
         </View>
       )}
+        </ScrollView>
+      
     </SafeAreaView>
   );
 };
@@ -152,6 +161,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "600",
     textAlign: "center",
+  },
+  Information: {
+    fontSize: 16,
+    
+    marginBottom: 2,
   },
 });
 
